@@ -77,6 +77,8 @@ class SdlWindow : public graphic::IWindow2 {
         }
 
         ~SdlWindow() {
+            if (!_cursor)
+                SDL_ShowCursor();
             registry().erase(_id);
             if (_renderer)
                 SDL_DestroyRenderer(_renderer);
@@ -115,6 +117,16 @@ class SdlWindow : public graphic::IWindow2 {
         }
 
         void setFrameLimit(int32_t limit) override { _frameLimit = limit; }
+
+        /* Global au processus en SDL3 aussi, et les deux fonctions ont perdu
+         * leur argument au passage a la 3. On remet le pointeur en partant. */
+        void setMouseVisibility(bool visible) override {
+            _cursor = visible;
+            if (visible)
+                SDL_ShowCursor();
+            else
+                SDL_HideCursor();
+        }
 
         int32_t getDelta() override { return _delta; }
 
@@ -295,6 +307,7 @@ class SdlWindow : public graphic::IWindow2 {
         SDL_Renderer *_renderer = nullptr;
         uint32_t _id = 0;
         bool _open = true;
+        bool _cursor = true;   ///< le pointeur, pour le remettre en partant
 
         /* Les evenements de la frame. Rempli par pump(), vide par endDraw() :
          * entre les deux, tout le monde y lit la meme chose. */
