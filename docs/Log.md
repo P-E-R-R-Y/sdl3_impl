@@ -1,23 +1,23 @@
-# sdl3_impl — journal
+# sdl3_impl — changelog
 
-Marqueurs : 🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc · 🟡 propose
-dans le plan, code non ecrit.
+Markers: 🟢 added · 🔴 breaking · 🔵 fix · ⚪ internal or docs · 🟡 proposed
+in the plan, no code written yet.
 
 ## v0.1.0
 
-- 🟢 remplit `graphic2` + `audio`
-- 🟢 point d'entree unique `getModules()`
-- 🟢 cibles SHARED et STATIC (la STATIC recompile `sources/sdl3.cpp` pour
-  un consommateur qui n'en a pas besoin — constate, pas corrige)
+- 🟢 fills `graphic2` + `audio`
+- 🟢 single entry point `getModules()`
+- 🟢 SHARED and STATIC targets (STATIC recompiles `sources/sdl3.cpp` for
+  a consumer that doesn't need it — known, not fixed)
 
-### Faille mesuree, pas corrigee
+### Measured failure, not fixed
 
-- 🔴 `createTexture`/`createSoundBuffer` etc. rendent un objet mort
-  (`isReady()==false`) au lieu de `nullptr` quand le chargement echoue.
-  meme comportement tolerant que sdl2
+- 🔴 `createTexture`/`createSoundBuffer` etc. return a dead object
+  (`isReady()==false`) instead of `nullptr` when loading fails.
+  same forgiving behaviour as sdl2
 
-## Propose, pas ecrit
+## Proposed, not written
 
-- 🟡 `claims()` : rien — meme raison que sdl2
-- 🟡 cible STATIC → INTERFACE, zero object code
-- 🟡 des exemples : n'en a toujours aucun
+- 🟡 `claims()`: nothing — same reason as sdl2
+- 🟡 STATIC target → INTERFACE, zero object code
+- 🟡 examples: still has none
