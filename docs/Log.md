@@ -3,6 +3,11 @@
 Markers: 🟢 added · 🔴 breaking · 🔵 fix · ⚪ internal or docs · 🟡 proposed
 in the plan, no code written yet.
 
+## v0.2.0
+
+- 🔴 Suit imodule v0.2.0, qui absorbe `modulemanager`. Aucune `claims()` a
+  declarer : sdl3 ne monopolise rien.
+
 ## v0.1.0
 
 - 🟢 fills `graphic2` + `audio`
