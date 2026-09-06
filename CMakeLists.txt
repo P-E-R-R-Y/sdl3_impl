@@ -16,7 +16,7 @@ cmake_var_extract(BUILD_SHARED_LIBS)
 cmake_var_extract(CMAKE_POSITION_INDEPENDENT_CODE)
 
 find_package(System REQUIRED)
-find_package(modulemanager REQUIRED)
+find_package(imodule REQUIRED)
 find_package(igraphic REQUIRED)
 find_package(iaudio REQUIRED)
 find_package(Sdl3 REQUIRED)
@@ -28,7 +28,7 @@ set(SOURCE_FILES sources/sdl3.cpp)
 
 # Deux facons de recuperer ce vendor, deux cibles explicites :
 #
-#   sdl3_impl         SHARED  sdl3_impl.dylib   -> a dlopen (ModuleManager)
+#   sdl3_impl         SHARED  sdl3_impl.dylib   -> a dlopen (IModuleManager)
 #   sdl3_impl_static  STATIC  libsdl3_impl.a    -> a linker en dur
 #
 # Le type n'est VOLONTAIREMENT pas gouverne par BUILD_SHARED_LIBS : la
@@ -69,7 +69,7 @@ foreach(flavour ${PROJECT_NAME} ${PROJECT_NAME}_static)
 endforeach()
 
 # sdl3_impl.dylib, pas libsdl3_impl.dylib : c'est ce nom que
-# ModuleManager::Load() recoit dans les tests et que la borne lit.
+# IModuleManager::Load() recoit dans les tests et que la borne lit.
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 #----------- tests -----------
@@ -92,7 +92,7 @@ target_link_libraries(${PROJECT_NAME}_tests
   gtest_main
   igraphic
   iaudio
-  modulemanager
+  imodule
   ${CMAKE_DL_LIBS}
 )
 
